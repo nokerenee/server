@@ -1,0 +1,13 @@
+version: "3"
+services:
+  mongo-demo:
+    image: mongo
+    ports:
+      - 27018:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=dbadmin
+      - MONGO_INITDB_ROOT_PASSWORD=Password1
+    volumes:
+      - dbdata6:/data/db
+volumes:
+  dbdata6:
