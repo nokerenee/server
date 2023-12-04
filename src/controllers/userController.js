@@ -1,18 +1,18 @@
 const User = require("../models/user");
 
 // Create a new user and save it to the database (if needed)
-const addUser = async (id, name, room) => {
+const addUser = async ( username) => {
   try {
     // Check if the username is taken in the database
     const existingUser = await User.findOne({
-      name: { $regex: new RegExp(`^${name}$`, "i") }, // Case-insensitive regex
+      name: { $regex: new RegExp(`^${username}$`, "i") }, // Case-insensitive regex
     });
 
     if (existingUser) {
       return { error: "Username has already been taken" };
     }
 
-    const user = new User({ id, name, room });
+    const user = new User({ username });
     await user.save();
     console.log("User saved to the database");
     return { user };

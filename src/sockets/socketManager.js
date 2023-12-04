@@ -2,6 +2,8 @@
 const { Server } = require("socket.io");
 const { addUser } = require("../controllers/userController"); // Import user controller or functions for interacting with the database
 const Message = require("../models/message");
+const { addRoom } = require("../controllers/roomController");
+const { fetchMessagesByRoomId } = require("../controllers/messageController");
 
 const configureSocket = (server) => {
   const io = new Server(server, {
@@ -13,19 +15,23 @@ const configureSocket = (server) => {
 
   io.on("connection", async (socket) => {
     console.log(`User Connected: ${socket.id}`);
+    // socket.emit()
 
-    socket.on("join_room", async (data) => {
+    socket.on("join_room", async (data, callback) => {
       try {
-        const { user, error } = await addUser(socket.id, data.name, data.room);
+        const { user, error } = await addUser(data.username);
         if (error) {
           // Handle error, send an error message to the user, etc.
           console.log(error);
           socket.emit("join_error", { error });
         } else {
+          const room = await addRoom(data.room);
           socket.join(data.room);
+          console.log(room);
           console.log(`User with ID: ${socket.id} joined room: ${data}`);
           // Broadcast to everyone in the room that a new user has joined
-          io.to(data.room).emit("user_joined", { user });
+          callback({ user, room });
+          // io.to(data.room).emit("user_joined", { user });
         }
       } catch (error) {
         console.log("Error joining room:", error);
@@ -33,15 +39,15 @@ const configureSocket = (server) => {
       }
 
       // Fetch previous messages from the database for the joined room
-      try {
-        const messages = await Message.find({ room: data }).populate("sender");
-        // Send previous messages to the client
-        io.to(socket.id).emit("previous_messages", messages);
-      } catch (error) {
-        console.error("Error fetching previous messages:", error);
-      }
+      // try {
+      //   const messages = await Message.find({ room: data }).populate("sender");
+      //   // Send previous messages to the client
+      //   io.to(socket.id).emit("previous_messages", messages);
+      // } catch (error) {
+      //   console.error("Error fetching previous messages:", error);
+      // }
 
-      console.log(`User with ID: ${socket.id} joined room: ${data}`);
+      // console.log(`User with ID: ${socket.id} joined room: ${data}`);
     });
 
     socket.on("send_message", async (data) => {
@@ -51,8 +57,8 @@ const configureSocket = (server) => {
       try {
         const newMessage = new Message({
           message: data.message,
-          sender: data.sender,
-          room: data.room,
+          sender: data.sender._id,
+          room: data.room._id,
         });
         await newMessage.save();
       } catch (error) {
@@ -61,6 +67,15 @@ const configureSocket = (server) => {
 
       // Broadcast the new message to other clients in the same room
       socket.to(data.room).emit("receive_message", data);
+    });
+
+    socket.on("get_messages", async (room, callback) => {
+      try {
+        const messages = await fetchMessagesByRoomId(room._id);
+        callback(messages);
+      } catch (e) {
+        console.log(e);
+      }
     });
 
     socket.on("disconnect", () => {
