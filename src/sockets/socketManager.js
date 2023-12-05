@@ -15,7 +15,6 @@ const configureSocket = (server) => {
 
   io.on("connection", async (socket) => {
     console.log(`User Connected: ${socket.id}`);
-    // socket.emit()
 
     socket.on("join_room", async (data, callback) => {
       try {

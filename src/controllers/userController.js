@@ -1,7 +1,7 @@
 const User = require("../models/user");
 
 // Create a new user and save it to the database (if needed)
-const addUser = async ( username) => {
+const addUser = async (username) => {
   try {
     // Check if the username is taken in the database
     const existingUser = await User.findOne({
@@ -12,11 +12,24 @@ const addUser = async ( username) => {
       return { error: "Username has already been taken" };
     }
 
-    const user = new User({ username });
-    await user.save();
+    let user = await User.findOneAndUpdate(
+      { username },
+      { $set: { is_active: true } },
+      { new: true, upsert: true } // Create if not exists
+    );
+
+    if (!user) {
+      user = new User({ username, is_active: true });
+      await user.save();
+    }
+
     console.log("User saved to the database");
     return { user };
   } catch (error) {
+    if (error.code === 11000) {
+      console.log(`Username ${username} is already taken`);
+      return { error: "Username is already taken" };
+    }
     console.error("Error saving user to the database:", error);
     return { error: "Failed to save user to the database" };
   }
@@ -52,4 +65,9 @@ const getUsers = async (room) => {
   }
 };
 
-module.exports = { addUser, getUser, deleteUser, getUsers };
+module.exports = {
+  addUser,
+  getUser,
+  deleteUser,
+  getUsers,
+};

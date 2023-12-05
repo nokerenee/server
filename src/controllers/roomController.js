@@ -1,7 +1,7 @@
 const chatRoom = require("../models/chatRoom");
 
 // Create a new room and save it to the database (if needed)
-const addRoom = async ( name) => {
+const addRoom = async (name) => {
   try {
     // Check if the room is taken in the database
     const existingRoom = await chatRoom.findOne({
