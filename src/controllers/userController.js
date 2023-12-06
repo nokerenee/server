@@ -1,23 +1,26 @@
 const User = require("../models/user");
 
-// Create a new user and save it to the database (if needed)
+// Create new user and save to the database
 const addUser = async (username) => {
   try {
-    // Check if the username is taken in the database
+    // Check if username is taken in database
     const existingUser = await User.findOne({
       name: { $regex: new RegExp(`^${username}$`, "i") }, // Case-insensitive regex
     });
 
     if (existingUser) {
+      // If username taken, return error
       return { error: "Username has already been taken" };
     }
 
+    // Try to find the user by username and update/create if not exists
     let user = await User.findOneAndUpdate(
       { username },
       { $set: { is_active: true } },
-      { new: true, upsert: true } // Create if not exists
+      { new: true, upsert: true }
     );
 
+    // If doesn't exist, create new user and save
     if (!user) {
       user = new User({ username, is_active: true });
       await user.save();
@@ -26,6 +29,7 @@ const addUser = async (username) => {
     console.log("User saved to the database");
     return { user };
   } catch (error) {
+    // Handle specific error code indicating duplicate username
     if (error.code === 11000) {
       console.log(`Username ${username} is already taken`);
       return { error: "Username is already taken" };
@@ -35,6 +39,7 @@ const addUser = async (username) => {
   }
 };
 
+// Find and return a user by ID
 const getUser = async (id) => {
   try {
     const user = await User.findOne({ _id: id });
@@ -55,6 +60,7 @@ const getUser = async (id) => {
 //   }
 // };
 
+// Find and return users in specified room
 const getUsers = async (room) => {
   try {
     const users = await User.find({ room: room });

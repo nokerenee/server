@@ -4,11 +4,11 @@ const ObjectId = Schema.Types.ObjectId;
 
 const messageSchema = new mongoose.Schema(
   {
-    // Content of the message
+    // Content of message
     message: { type: String },
-    // Sender of the message (reference to User)
+    // Sender of message, reference to "User" model
     sender: { type: ObjectId, ref: "User", required: true },
-    // Chat room to which the message belongs (reference to ChatRoom)
+    // Chat room where message belongs, reference to "ChatRoom" model
     room: { type: ObjectId, ref: "ChatRoom" },
   },
   {
