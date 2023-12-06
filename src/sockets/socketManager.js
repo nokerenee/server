@@ -4,7 +4,9 @@ const Message = require("../models/message");
 const { addRoom } = require("../controllers/roomController");
 const { fetchMessagesByRoomId } = require("../controllers/messageController");
 
+// Function to configure the socket and handle socket events
 const configureSocket = (server) => {
+  // Create new instance of Socket.IO server
   const io = new Server(server, {
     cors: {
       origin: "http://localhost:3000",
@@ -78,6 +80,7 @@ const configureSocket = (server) => {
       await handleSendMessage(socket, data);
     });
 
+    // Handle event when user requests existing messages in room
     socket.on("get_messages", async (room, callback) => {
       await handleGetMessages(socket, room, callback);
     });
@@ -87,6 +90,7 @@ const configureSocket = (server) => {
     });
   });
 
+  // Return configured socket
   return io;
 };
 

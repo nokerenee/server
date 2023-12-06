@@ -1,16 +1,12 @@
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
-const ObjectId = Schema.Types.ObjectId;
 
 const chatRoomSchema = new mongoose.Schema(
   {
     // Unique, lowercase name of the chat room
-    name: { type: String, unique: true, lowercase: true },
-    // Array of users associated with the chat room
-    users: [{ type: ObjectId, ref: "User" }],
+    name: { type: String, unique: true, lowercase: true }
   },
   {
-    timestamps: true,
+    timestamps: true, // Automatically generate createdAt and updatedAt timestamps
   }
 );
 

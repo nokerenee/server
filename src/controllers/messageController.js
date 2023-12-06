@@ -1,12 +1,13 @@
 const message = require("../models/message");
 
-// Create a new room and save it to the database (if needed)
-const fetchMessagesByRoomId = async ( roomId) => {
+// Create new room and save to database (if needed)
+const fetchMessagesByRoomId = async (roomId) => {
   try {
-    // Check if the room is taken in the database
-    const messages = await message.find({room: roomId
-    });
+    // Check if room is taken in database
+    const messages = await message.find({ room: roomId });
+    // Log a success message
     console.log("Room saved to the database");
+    // Return fetched messages
     return messages;
   } catch (error) {
     console.error("Error saving room to the database:", error);
