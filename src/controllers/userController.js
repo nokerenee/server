@@ -37,7 +37,7 @@ const addUser = async (username) => {
 
 const getUser = async (id) => {
   try {
-    const user = await User.findOne({ id });
+    const user = await User.findOne({ _id: id });
     return user;
   } catch (error) {
     console.error("Error getting user from the database", error);
@@ -45,19 +45,19 @@ const getUser = async (id) => {
   }
 };
 
-const deleteUser = async (id) => {
-  try {
-    const deleteUser = await User.findOneAndDelete({ id });
-    return deleteUser;
-  } catch (error) {
-    console.error("Error deleting user from the database", error);
-    return null;
-  }
-};
+// const deleteUser = async (id) => {
+//   try {
+//     const deleteUser = await User.findOneAndDelete({ id });
+//     return deleteUser;
+//   } catch (error) {
+//     console.error("Error deleting user from the database", error);
+//     return null;
+//   }
+// };
 
 const getUsers = async (room) => {
   try {
-    const users = await User.find({ room });
+    const users = await User.find({ room: room });
     return users;
   } catch (error) {
     console.error("Error getting users from the database", error);
@@ -68,6 +68,6 @@ const getUsers = async (room) => {
 module.exports = {
   addUser,
   getUser,
-  deleteUser,
+  // deleteUser,
   getUsers,
 };
