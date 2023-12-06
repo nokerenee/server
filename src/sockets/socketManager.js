@@ -1,4 +1,3 @@
-// sockets/socketManager.js
 const { Server } = require("socket.io");
 const { addUser } = require("../controllers/userController"); // Import user controller or functions for interacting with the database
 const Message = require("../models/message");

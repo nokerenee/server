@@ -13,7 +13,7 @@ const addUser = async (username) => {
       return { error: "Username has already been taken" };
     }
 
-    // Try to find the user by username and update/create if not exists
+    // Try to find the user by username
     let user = await User.findOneAndUpdate(
       { username },
       { $set: { is_active: true } },
