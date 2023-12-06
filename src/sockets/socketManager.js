@@ -36,17 +36,6 @@ const configureSocket = (server) => {
         console.log("Error joining room:", error);
         socket.emit("join_error", { error: "Internal server error" });
       }
-
-      // Fetch previous messages from the database for the joined room
-      // try {
-      //   const messages = await Message.find({ room: data }).populate("sender");
-      //   // Send previous messages to the client
-      //   io.to(socket.id).emit("previous_messages", messages);
-      // } catch (error) {
-      //   console.error("Error fetching previous messages:", error);
-      // }
-
-      // console.log(`User with ID: ${socket.id} joined room: ${data}`);
     });
 
     socket.on("send_message", async (data) => {
