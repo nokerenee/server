@@ -7,13 +7,8 @@ const uri =
   process.env.DB_URI || // Use provided environment variable or
   `mongodb://dbadmin:Password1@localhost:27018/chatDB?authSource=admin`; // default values
 
-// Mongoose connection options
-const mongooseOptions = {
-  useNewUrlParser: true, // Parse connection string with new parser
-  useUnifiedTopology: true, // Use new Server Discover and Monitoring engine
-};
-
-Mongoose.connect(uri, mongooseOptions)
+//Connect to MongoDB
+Mongoose.connect(uri)
   .then(() => console.log("MongoDB Connected"))
   .catch((error) => console.log("MongoDB Error: " + error.message));
 
