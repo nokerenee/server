@@ -1,3 +1,5 @@
+// defines a Mongoose schema for a user with a unique, lowercase username and an indicator for user activity, generating a model named "User" for MongoDB interaction with automatic timestamps
+
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(

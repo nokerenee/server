@@ -1,3 +1,5 @@
+// defines a function fetchMessagesByRoomId that retrieves messages associated with a specific room from database
+
 const message = require("../models/message");
 
 // Create new room and save to database (if needed)

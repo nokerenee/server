@@ -1,3 +1,5 @@
+// defines an async function addRoom that creates a new chat room, checks if it already exists in the database, and either returns the existing room or saves the new room to the database
+
 const chatRoom = require("../models/chatRoom");
 
 // Create new room and save to the database

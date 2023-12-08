@@ -1,3 +1,5 @@
+// exports functions for interacting with a MongoDB database using the Mongoose model "User," including adding a new user, fetching a user by ID, and retrieving users in a specified room
+
 const User = require("../models/user");
 
 // Create new user and save to the database

@@ -1,3 +1,5 @@
+// defines a Mongoose schema for a chat room with a unique lowercase name and automatic timestamps, creating a model named "ChatRoom" for interaction with MongoDB
+
 const mongoose = require("mongoose");
 
 const chatRoomSchema = new mongoose.Schema(

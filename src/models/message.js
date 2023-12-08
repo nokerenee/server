@@ -1,3 +1,5 @@
+// defines a Mongoose schema for a message with content, sender reference to the "User" model, room reference to the "ChatRoom" model, and automatic timestamps, creating a model named "Message" for MongoDB interaction
+
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const ObjectId = Schema.Types.ObjectId;

@@ -1,10 +1,12 @@
+// initializes an Express server with CORS middleware, loads environment variables, creates an HTTP server, establishes a connection to a MongoDB database using Mongoose model schemas, configures a Socket.IO server, handles global errors, and starts the server on a specified port
+
 const dbConnect = require("./db/dbConnect");
 const express = require("express");
 const app = express();
 const http = require("http");
 const cors = require("cors");
 
-// Add Cross-Origin Resource Sharing (CORS) middleware
+// Add CORS middleware
 app.use(cors());
 
 // Load environment variables from .env file
