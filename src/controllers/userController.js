@@ -1,8 +1,6 @@
-// exports functions for interacting with a MongoDB database using the Mongoose model "User," including adding a new user, fetching a user by ID, and retrieving users in a specified room
-
 const User = require("../models/user");
 
-// Create new user and save to the database
+// Defines functions to create new user
 const addUser = async (username) => {
   try {
     // Check if username is taken in database
@@ -22,7 +20,7 @@ const addUser = async (username) => {
       { new: true, upsert: true }
     );
 
-    // If doesn't exist, create new user and save
+    // If doesn't exist, create new user and save to the database
     if (!user) {
       user = new User({ username, is_active: true });
       await user.save();
@@ -41,7 +39,7 @@ const addUser = async (username) => {
   }
 };
 
-// Find and return a user by ID
+// Fetch a user by ID
 const getUser = async (id) => {
   try {
     const user = await User.findOne({ _id: id });
@@ -62,7 +60,7 @@ const getUser = async (id) => {
 //   }
 // };
 
-// Find and return users in specified room
+// Retrieves users in specified room
 const getUsers = async (room) => {
   try {
     const users = await User.find({ room: room });

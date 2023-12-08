@@ -1,23 +1,20 @@
-// defines an async function addRoom that creates a new chat room, checks if it already exists in the database, and either returns the existing room or saves the new room to the database
-
 const chatRoom = require("../models/chatRoom");
 
-// Create new room and save to the database
+// Defines function to add room
 const addRoom = async (name) => {
   try {
-    // Check if room already exists in database
+    // checks if already exists in database
     const existingRoom = await chatRoom.findOne({
       name: { $regex: new RegExp(`^${name}$`, "i") }, // Case-insensitive regex
     });
 
     if (existingRoom) {
-      // If already exists, return existing room
+      // either return existing room
       return existingRoom;
     }
 
-    // If doesn't exist, create new room
+    // or save new room
     const room = new chatRoom({ name });
-    // Save new room to database
     await room.save();
     console.log("Room saved to the database");
     return room;

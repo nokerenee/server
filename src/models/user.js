@@ -1,4 +1,5 @@
-// defines a Mongoose schema for a user with a unique, lowercase username and an indicator for user activity, generating a model named "User" for MongoDB interaction with automatic timestamps
+// Created a model named "User" includes a user with a unique, lowercase username 
+// and an indicator for user activity
 
 const mongoose = require("mongoose");
 

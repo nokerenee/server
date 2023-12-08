@@ -1,4 +1,6 @@
-// establishes a connection to a MongoDB database using Mongoose, with an optional URI from the environment variable and a default URI, and exports the Mongoose object along with handling connection events and errors
+// establishes a connection to a MongoDB database using Mongoose, 
+// with an optional URI from the environment variable and a default URI, 
+// and exports the Mongoose object along with handling connection events and errors
 
 "use strict";
 

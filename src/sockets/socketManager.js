@@ -1,12 +1,10 @@
-// configures a Socket.IO server, defines event handlers for user actions such as joining a room, sending messages, and retrieving existing messages, and then exports the configured socket for use in a Node.js application
-
 const { Server } = require("socket.io");
 const { addUser } = require("../controllers/userController");
 const Message = require("../models/message");
 const { addRoom } = require("../controllers/roomController");
 const { fetchMessagesByRoomId } = require("../controllers/messageController");
 
-// Function to configure the socket and handle socket events
+// Function to configure the socket server
 const configureSocket = (server) => {
   // Create new instance of Socket.IO server
   const io = new Server(server, {
@@ -16,6 +14,8 @@ const configureSocket = (server) => {
     },
   });
 
+  // define functions and event handlers for user actions:
+  
   // Function to handle user joining room
   const handleJoinRoom = async (socket, data, callback) => {
     try {
@@ -66,7 +66,7 @@ const configureSocket = (server) => {
     socket.to(data.room.name).emit("receive_message", data);
   };
 
-  // Function to handle retrieving existing messages in room
+  // Function to handle retrieving existing messages
   const handleGetMessages = async (socket, room, callback) => {
     try {
       // Fetch existing messages in specified room and invoke callback

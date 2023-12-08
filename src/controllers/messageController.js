@@ -1,11 +1,10 @@
-// defines a function fetchMessagesByRoomId that retrieves messages associated with a specific room from database
+// controllers define functions for interacting with a MongoDB database using Mongoose models
 
 const message = require("../models/message");
 
-// Create new room and save to database (if needed)
+// defines function to retrieve messages associated with a specific room
 const fetchMessagesByRoomId = async (roomId) => {
   try {
-    // Check if room is taken in database
     const messages = await message.find({ room: roomId });
     // Log a success message
     console.log("Room saved to the database");

@@ -1,4 +1,6 @@
-// defines a Mongoose schema for a message with content, sender reference to the "User" model, room reference to the "ChatRoom" model, and automatic timestamps, creating a model named "Message" for MongoDB interaction
+// Created a model named "Message" including message with content, 
+// a sender reference to the "User" model, 
+// room reference to the "ChatRoom" model
 
 const mongoose = require("mongoose");
 const { Schema } = mongoose;

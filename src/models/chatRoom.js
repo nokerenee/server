@@ -1,4 +1,5 @@
-// defines a Mongoose schema for a chat room with a unique lowercase name and automatic timestamps, creating a model named "ChatRoom" for interaction with MongoDB
+// Mongoose model schema for interacting and saving within mongoDB 
+// create model "ChatRoom" for nameing the chat room with a unique lowercase name and automatic timestamps
 
 const mongoose = require("mongoose");
 
