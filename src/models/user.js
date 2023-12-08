@@ -1,5 +1,5 @@
-// Created a model named "User" includes a user with a unique, lowercase username 
-// and an indicator for user activity
+// Created a model named "User" includes a user with a unique, lowercase 
+// username and an indicator for user activity
 
 const mongoose = require("mongoose");
 

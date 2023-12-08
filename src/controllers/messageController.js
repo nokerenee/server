@@ -1,4 +1,5 @@
-// controllers define functions for interacting with a MongoDB database using Mongoose models
+// controllers define functions for interacting 
+// with a MongoDB database using Mongoose models
 
 const message = require("../models/message");
 
